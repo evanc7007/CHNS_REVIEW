@@ -1,0 +1,32 @@
+Room @ 屋
+Humanities @ 文学
+China @ 中国
+Korea @ 韩国
+Confucius @ 孔子
+Zhu Xi @ 朱熹
+WANG YANGMING @ 王阳明
+Ming @ 明
+Tang @ 唐
+Song @ 宋
+Yuan @ 元
+Qing @ 清
+Cult of Passion @ 情教
+Japan @ 日本
+Journey to the West @ 西游记
+Filial Piety @ 孝顺
+Math @ 数学
+Snow @ 雪
+Moon @ 月
+Apple @ 苹果
+Computer @ 电脑
+People @ 人们
+Phone @ 手机
+Table @ 桌子
+Writing @ 写作
+Jumping @ 跳
+I @ 我
+You @ 你
+Bottle @ 瓶子
+Movie @ 电影
+
+
