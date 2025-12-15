@@ -18,6 +18,9 @@ public class multipleChoiceFrame extends JFrame {
     private String correctAnswer;
     private Map<String, String> map;
     private int numbChoices = 4;
+    private static String previousQuestion;
+    private static String previousAnswer;
+    private String currentQuestion;
 
     public multipleChoiceFrame() {
         super("Multiple Choice Quiz");
@@ -154,6 +157,11 @@ public class multipleChoiceFrame extends JFrame {
             new mainMenuFrame();
         });
 
+        JButton previousButton = new JButton("Previous");
+        previousButton.setFont(new Font("SansSerif", Font.BOLD, 14));
+        previousButton.setBackground(Color.WHITE);
+        previousButton.addActionListener(this::handlePrevious);
+
         //buttons at bottom
         //submit
         submitButton = new JButton("Submit");
@@ -167,6 +175,7 @@ public class multipleChoiceFrame extends JFrame {
         bottomPanel.add(exitButton, BorderLayout.WEST);
         bottomPanel.add(continueLabel, BorderLayout.CENTER);
         bottomPanel.add(submitButton, BorderLayout.EAST);
+        bottomPanel.add(previousButton, BorderLayout.SOUTH);
 
         grid.gridy = 2;
         grid.weighty = 0.1; // 0.6, 0.3
@@ -189,6 +198,7 @@ public class multipleChoiceFrame extends JFrame {
         // we take advantage of the reader.java helper functions.
         String quote = reader.getQuestion(map);
         correctAnswer = reader.getCorrectAnswer(map, quote);
+        currentQuestion = quote;
 
         ArrayList<String> randAnswers = multipleChoice.getRandAnswer(correctAnswer, map, numbChoices);
         Collections.shuffle(randAnswers);
@@ -242,6 +252,30 @@ public class multipleChoiceFrame extends JFrame {
         continueLabel.setText(" ");
     }
 
+    private void handlePrevious(ActionEvent e){
+        if (previousQuestion == null || previousAnswer == null) {
+            JOptionPane.showMessageDialog(
+                this,
+                "No previous question available.",
+                "Previous",
+                JOptionPane.INFORMATION_MESSAGE
+            );
+            return;
+        }
+
+        String message = "<html><body style='width:1000px'>"
+            + "<b>Previous Question:</b><br>" + previousQuestion
+            + "<br><br><b>Previous Answer:</b><br>" + previousAnswer
+            + "</body></html>";
+
+        JOptionPane.showMessageDialog(
+            this,
+            message,
+            "Previous",
+            JOptionPane.INFORMATION_MESSAGE
+        );
+        }
+
     private void handleSubmit(ActionEvent e) {
         String selected = getSelectedAnswer();
         if (selected == null) {
@@ -270,6 +304,17 @@ public class multipleChoiceFrame extends JFrame {
         //         "Continue",
         //         JOptionPane.YES_NO_OPTION
         // );
+        // store previous question and answer (remove surrounding quotes if present)
+        if (currentQuestion != null && currentQuestion.length() >= 2) {
+            previousQuestion = currentQuestion.substring(1, currentQuestion.length() - 1);
+        } else {
+            previousQuestion = currentQuestion;
+        }
+        if (correctAnswer != null && correctAnswer.length() >= 2) {
+            previousAnswer = correctAnswer.substring(1, correctAnswer.length() - 1);
+        } else {
+            previousAnswer = correctAnswer;
+        }
 
         //if (choice == JOptionPane.YES_OPTION) {
             loadNewQuestion();
